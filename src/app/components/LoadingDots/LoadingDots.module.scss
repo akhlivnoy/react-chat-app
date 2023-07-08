@@ -1,6 +1,5 @@
 $dotSize: 0.5rem;
 $dotInterval: $dotSize * 1.6;
-@debug $dotInterval * 2;
 
 .container {
   display: inline-block;
@@ -47,6 +46,6 @@ $dotInterval: $dotSize * 1.6;
   }
   50%,
   100% {
-    background-color: $neutral;
+    background-color: $grey-dark;
   }
 }
