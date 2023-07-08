@@ -1,0 +1,32 @@
+{
+  "import": {
+    "scope": "typescript, typescriptreact",
+    "prefix": "imp",
+    "body": "import $2 from '${1:module}'"
+  },
+  "importDestructing": {
+    "scope": "typescript, typescriptreact",
+    "prefix": "imd",
+    "body": "import { $2 } from '${1:module}'"
+  },
+  "importReact": {
+    "scope": "typescript, typescriptreact",
+    "prefix": "imr",
+    "body": "import React from 'react'"
+  },
+  "importAs": {
+    "scope": "typescript, typescriptreact",
+    "prefix": "ima",
+    "body": "import { $2 as ${3:name} } from '${1:module}'"
+  },
+  "importEverything": {
+    "scope": "typescript, typescriptreact",
+    "prefix": "ime",
+    "body": "import * as ${2:name} from '${1:module}'"
+  },
+  "importStyles": {
+    "scope": "typescript, typescriptreact",
+    "prefix": "ims",
+    "body": "import styles from './${1:$TM_FILENAME_BASE}.module.scss';"
+  }
+}

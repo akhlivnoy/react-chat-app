@@ -1,0 +1,7 @@
+{
+  "classNames": {
+    "scope": "typescriptreact",
+    "prefix": "cns",
+    "body": "classNames($0)"
+  }
+}

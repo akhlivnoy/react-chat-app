@@ -1,0 +1,36 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false
+      }
+    ],
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": "./src",
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"],
+        "alias": {
+          "#assets": ["./app/assets"],
+          "#components": ["./app/components"],
+          "#constants": ["./app/constants"],
+          "#hooks": ["./app/hooks"],
+          "#models": ["./app/models"],
+          "#navigation": ["./app/navigation"],
+          "#redux": ["./app/redux"],
+          "#pages": ["./app/pages"],
+          "#services": ["./app/services"],
+          "#themes": ["./app/themes"],
+          "#types": ["./app/types"],
+          "#utils": ["./app/utils"]
+        }
+      }
+    ],
+    "@babel/plugin-proposal-export-namespace-from",
+    "babel-plugin-macros"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "exportAs": {
+    "scope": "typescript, typescriptreact",
+    "prefix": "exa",
+    "body": "export { $2 as ${3:name} } from '${1:module}'"
+  },
+  "exportDestructing": {
+    "scope": "typescript, typescriptreact",
+    "prefix": "exd",
+    "body": "export { $2 } from '${1:module}'"
+  },
+  "exportEverything": {
+    "scope": "typescript, typescriptreact",
+    "prefix": "exe",
+    "body": "export * from '${1:module}'"
+  },
+  "exportType": {
+    "scope": "typescript, typescriptreact",
+    "prefix": "ext",
+    "body": "export type {$2} from '${1:module}'"
+  },
+  "exportEnum": {
+    "scope": "typescript, typescriptreact",
+    "prefix": "exen",
+    "body": "export enum ${1:EnumName} {\n\t$0\n}"
+  },
+  "exportConst": {
+    "scope": "typescript, typescriptreact",
+    "prefix": "exc",
+    "body": "export const ${1/(.*)/${1:/upcase}/} = $0;"
+  },
+  "exportInterface": {
+    "scope": "typescript, typescriptreact",
+    "prefix": "exi",
+    "body": "export interface I${1/(.*)/${1:/capitalize}/} {\n\t$0\n}"
+  }
+}

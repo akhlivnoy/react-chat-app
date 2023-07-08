@@ -1,0 +1,52 @@
+$dotSize: 0.5rem;
+$dotInterval: $dotSize * 1.6;
+@debug $dotInterval * 2;
+
+.container {
+  display: inline-block;
+}
+
+.dot-flashing {
+  $animationDuration: 600ms;
+
+  position: relative;
+
+  &,
+  &::before,
+  &::after {
+    display: inline-block;
+    width: $dotSize;
+    height: $dotSize;
+
+    border-radius: 50%;
+
+    animation: dot-flashing $animationDuration infinite linear alternate;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+  }
+
+  &::before {
+    left: $dotInterval;
+
+    animation-delay: calc($animationDuration / 3);
+  }
+
+  &::after {
+    left: $dotInterval * 2;
+    animation-delay: calc($animationDuration / 3 * 2);
+  }
+}
+
+@keyframes dot-flashing {
+  0% {
+    background-color: $grey;
+  }
+  50%,
+  100% {
+    background-color: $neutral;
+  }
+}

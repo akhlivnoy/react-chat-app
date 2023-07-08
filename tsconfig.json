@@ -1,0 +1,54 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src/app",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ESNext", "ES6"],
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "noEmit": true,
+    "paths": {
+      "#assets": ["assets/"],
+      "#assets/*": ["assets/*"],
+      "#components": ["components"],
+      "#components/*": ["components/*"],
+      "#constants": ["constants"],
+      "#constants/*": ["constants/*"],
+      "#hooks": ["hooks"],
+      "#hooks/*": ["hooks/*"],
+      "#models": ["models"],
+      "#models/*": ["models/*"],
+      "#navigation": ["navigation"],
+      "#navigation/*": ["navigation/*"],
+      "#pages": ["pages"],
+      "#pages/*": ["pages/*"],
+      "#redux": ["redux"],
+      "#redux/*": ["redux/*"],
+      "#services": ["services"],
+      "#services/*": ["services/*"],
+      "#themes": ["themes"],
+      "#themes/*": ["themes/*"],
+      "#types": ["types"],
+      "#types/*": ["types/*"],
+      "#utils": ["utils"],
+      "#utils/*": ["utils/*"]
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ESNext",
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "classnameTransform": "camelCaseOnly",
+          "additionalData": "@use 'styles' as *;"
+        }
+      }
+    ]
+  },
+  "include": ["src"]
+}

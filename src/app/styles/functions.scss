@@ -1,0 +1,16 @@
+@use './vars.scss' as *;
+@use 'sass:math';
+
+@function adaptiveValue($startSize, $minSize) {
+  $addSize: math.div(calc($startSize - $minSize), ($startSize * 0 + 1));
+
+  @return calc(
+    #{$minSize} + #{$addSize} *
+      (
+        (100vw - #{$rootMinWidth}) / #{math.div(
+            ($rootMaxWidth - $rootHorizontalPadding * 2 - $rootMinWidth),
+            ($rootMaxWidth * 0 + 1)
+          )}
+      )
+  );
+}

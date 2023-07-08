@@ -1,0 +1,32 @@
+{
+  "useState": {
+    "scope": "typescriptreact",
+    "prefix": "useState",
+    "body": "const [$1, set${1/(.*)/${1:/capitalize}/}] = useState$2(${3:null});",
+    "description": "Hook useState"
+  },
+  "useCallback": {
+    "scope": "typescriptreact",
+    "prefix": "useCallback",
+    "body": "const ${1:name} = useCallback$2(($3) => {\n\t$0\n},[]);",
+    "description": "Hook useCallback"
+  },
+  "useEffect": {
+    "scope": "typescriptreact",
+    "prefix": "useEffect",
+    "body": "useEffect$1(() => {\n\t$0\n},[]);",
+    "description": "Hook useEffect"
+  },
+  "useMemo": {
+    "scope": "typescriptreact",
+    "prefix": "useMemo",
+    "body": "const ${1:name} = useMemo$2(() => {\t\n$0\n}, []);",
+    "description": "Hook useMemo"
+  },
+  "useLocation": {
+    "scope": "typescriptreact",
+    "prefix": "useLocation",
+    "body": "const location = useLocation$2();",
+    "description": "Hook useLocation"
+  }
+}

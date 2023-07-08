@@ -1,0 +1,44 @@
+@use './vars.scss' as *;
+@use 'sass:math';
+
+@mixin mq-min($key: md) {
+  @if not map-has-key($breakpoints, $key) {
+    @error "Size '#{$key}' not found.";
+  }
+
+  $size: map-get($breakpoints, $key);
+
+  @media (min-width: $size) {
+    @content;
+  }
+}
+
+@mixin mq-max($key: md) {
+  @if not map-has-key($breakpoints, $key) {
+    @error "Size '#{$key}' not found.";
+  }
+
+  $size: map-get($breakpoints, $key);
+
+  @media (max-width: $size) {
+    @content;
+  }
+}
+
+@mixin adaptive-property($property, $startSize, $minSize) {
+  $addSize: math.div(calc($startSize - $minSize), ($startSize * 0 + 1));
+
+  #{$property}: $startSize;
+
+  @media (max-width: #{$rootMaxWidth - $rootHorizontalPadding * 2}) {
+    #{$property}: calc(
+      #{$minSize} + #{$addSize} *
+        (
+          (100vw - #{$rootMinWidth}) / #{math.div(
+              ($rootMaxWidth - $rootHorizontalPadding * 2 - $rootMinWidth),
+              ($rootMaxWidth * 0 + 1)
+            )}
+        )
+    );
+  }
+}

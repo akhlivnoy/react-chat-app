@@ -1,0 +1,182 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest/globals": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/typescript",
+    "plugin:import/warnings",
+    "plugin:jest/recommended",
+    "plugin:promise/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/recommended",
+    "plugin:css-modules/recommended",
+    "prettier"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "Response": "readonly",
+    "SharedArrayBuffer": "readonly",
+    "WebSocket": false,
+    "fetch": false
+  },
+  "ignorePatterns": ["**/*.web.ts", "**/*.web.tsx"],
+  "overrides": [
+    {
+      "files": ["**/*.tsx"],
+      "rules": {
+        "react/prop-types": "off"
+      }
+    }
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint", "simple-import-sort", "restrict-imports", "sort-keys", "css-modules"],
+  "rules": {
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "extendDefaults": true,
+        "types": {
+          "object": false,
+          "{}": false,
+          "React.FC": {
+            "message": "Please use React.ComponentType instead",
+            "fixWith": "React.ComponentType"
+          },
+          "PropsWithChildren": {
+            "message": "Please use WithChildren OR WithOptionalChildren types instead"
+          }
+        }
+      }
+    ],
+    "@typescript-eslint/camelcase": "off", // temporary solution
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "custom": {
+          "match": true,
+          "regex": "^I[A-Z]"
+        },
+        "format": ["PascalCase"],
+        "selector": "interface"
+      }
+    ],
+    "@typescript-eslint/no-empty-function": [
+      "error",
+      {
+        "allow": ["arrowFunctions"]
+      }
+    ],
+    "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_.+",
+        "varsIgnorePattern": "^_.+"
+      }
+    ],
+    "@typescript-eslint/no-use-before-define": "error",
+    "@typescript-eslint/no-var-requires": "off",
+    "camelcase": "off",
+    "global-require": "off",
+    "import/no-cycle": "off",
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never",
+        "": "never"
+      }
+    ],
+    "import/no-unresolved": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/order": "off",
+    "import/prefer-default-export": "off",
+    "jest/expect-expect": 0,
+    "max-len": [
+      "error",
+      {
+        "code": 140,
+        "ignoreComments": true
+      }
+    ],
+    "no-empty-function": "off",
+    "no-restricted-exports": "off",
+    "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
+    "no-shadow": "off",
+    "no-tabs": "off",
+    "no-underscore-dangle": "off",
+    "no-unused-vars": "off",
+    "no-use-before-define": "off",
+    "prettier/prettier": "off",
+    "promise/always-return": "off",
+    "promise/catch-or-return": "off",
+    "promise/no-nesting": "off",
+    "react-hooks/exhaustive-deps": "error",
+    "react/function-component-definition": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".jsx", ".tsx"]
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-sort-props": [
+      2,
+      {
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "ignoreCase": false,
+        "reservedFirst": ["children", "ref"]
+      }
+    ],
+    "react/no-multi-comp": 1,
+    "react/no-unused-class-component-methods": "off",
+    "react/require-default-props": "off",
+    "restrict-imports/restrict-imports": [
+      "error",
+      {
+        "[.]+/[.]+/[a-zA-Z0-9-/]+": {
+          "locations": ["(.*)"],
+          "message": "Please use absolute imports instead"
+        }
+      }
+    ],
+    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": "error",
+    "sort-imports": "off",
+    "react/react-in-jsx-scope": "off",
+    "sort-keys/sort-keys-fix": "off", // temporary solution
+    "react/button-has-type": "off",
+    "newline-before-return": "warn",
+    "css-modules/no-unused-class": [1, { "camelCase": true }],
+    "css-modules/no-undef-class": [2, { "camelCase": true }]
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {
+        "alias": "paths",
+        "extensions": [".ts", ".tsx"]
+      }
+    },
+    "react": {
+      "version": "detect"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  //* Properties
+  "color": {
+    "scope": "scss",
+    "prefix": "clr",
+    "body": "color: $$1;"
+  },
+  "backgroundColor": {
+    "scope": "scss",
+    "prefix": "bgc",
+    "body": "background-color: $$1;"
+  },
+
+  //* Indents
+  "paddingAllSides": {
+    "scope": "scss",
+    "prefix": "pp",
+    "body": "padding: ${1:0}rem ${2:0}rem ${3:0}rem ${4:0}rem;"
+  },
+  "paddingRemVH": {
+    "scope": "scss",
+    "prefix": "pvhr",
+    "body": "padding: $1rem $2rem;"
+  },
+  "paddingEmVH": {
+    "scope": "scss",
+    "prefix": "pvhe",
+    "body": "padding: $1em $2em;"
+  },
+  "gapRem": {
+    "scope": "scss",
+    "prefix": "gr",
+    "body": "gap: $1rem;"
+  },
+
+  //* Media Queries
+  "minWidthQuery": {
+    "scope": "scss",
+    "prefix": "mqMin",
+    "body": "@include mq-min(${1|xs,sm,md,lg|}) {\n\t$0\n}"
+  },
+  "maxWidthQuery": {
+    "scope": "scss",
+    "prefix": "mqMax",
+    "body": "@include mq-max(${1|xs,sm,md,lg|}) {\n\t$0\n}"
+  },
+
+  //* Mixins
+  "adaptiveProperty": {
+    "scope": "scss",
+    "prefix": "adProp",
+    "body": "@include adaptive-property(${1:property}, ${2:startSize}, ${3:minSize});"
+  }
+}

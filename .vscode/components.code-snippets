@@ -1,0 +1,26 @@
+{
+  "exportArrowFunctionComponent": {
+    "scope": "typescriptreact",
+    "prefix": "eafc",
+    "body": [
+      "export const ${1:$TM_FILENAME_BASE}: React.ComponentType = () => {",
+      "\treturn (",
+      "\t\t<div>$0</div>",
+      "\t);\n};\n"
+    ],
+    "description": "Creates and exports a React Arrow Function Component"
+  },
+  "exportArrowFunctionPage": {
+    "scope": "typescriptreact",
+    "prefix": "page",
+    "body": [
+      "export const ${TM_FILENAME_BASE}Page: React.ComponentType = () => {",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t${0:$TM_FILENAME_BASE}",
+      "\t\t</div>",
+      "\t);\n};\n"
+    ],
+    "description": "Creates and exports a React Arrow Function Component with a file name"
+  }
+}
