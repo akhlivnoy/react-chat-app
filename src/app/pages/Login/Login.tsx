@@ -1,102 +1,30 @@
-import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { UserList } from '#components';
-import { useAppDispatch, useAppSelector } from '#hooks';
-import { userSlice } from '#redux/slices';
-import { classNames } from '#utils/classNames';
+import { Paths } from '#navigation/routes';
 
 import styles from './Login.module.scss';
 
-export const LoginPage: React.ComponentType = () => {
-  // const state = useLocationState<ILoginState>();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [index, setIndex] = useState(0);
+export const LoginPage: React.ComponentType = () => (
+  <div className={styles.container}>
+    <h2 className={styles.title}>Chat</h2>
+    <h3 className={styles.subtitle}>Login</h3>
+    <form
+      action="POST"
+      className={styles.form}
+    >
+      <input
+        placeholder="email@mail.com"
+        type="email"
+      />
+      <input
+        placeholder="password"
+        type="password"
+      />
 
-  const dispatch = useAppDispatch();
-  const { user, userList } = useAppSelector(state => state.user);
-  const { errors } = useAppSelector(state => state.app);
-
-  useEffect(() => {
-    if (!userList?.length) {
-      dispatch(userSlice.actions.getUserList({ limit: 10 }));
-    }
-  }, [dispatch, userList?.length]);
-
-  useEffect(() => {
-    if (userList.length) {
-      setUsername(userList[index].username);
-      setPassword(userList[index].password);
-    }
-  }, [index, userList]);
-
-  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
-
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const handleLogin = () => {
-    dispatch(userSlice.actions.loginUser({ username, password }));
-  };
-
-  const handleLogout = () => {
-    dispatch(userSlice.actions.logout());
-  };
-
-  return (
-    <div className={styles.container}>
-      {user?.token ? (
-        <>
-          <div className={styles.userInfo}>
-            <h2>
-              Hello, {user.firstName} {user.lastName}
-            </h2>
-            <img
-              alt="avatar"
-              className={styles.image}
-              src={user.image}
-            />
-          </div>
-          <button
-            className={classNames(styles.input, styles.button)}
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        </>
-      ) : (
-        <>
-          <UserList
-            className={classNames(styles.input, styles.select)}
-            data={userList}
-            setIndex={setIndex}
-          />
-          <input
-            className={styles.input}
-            placeholder="username"
-            type="text"
-            value={username}
-            onChange={handleChangeName}
-          />
-          <input
-            className={styles.input}
-            placeholder="password"
-            type="password"
-            value={password}
-            onChange={handleChangePassword}
-          />
-          <button
-            className={classNames(styles.input, styles.button)}
-            onClick={handleLogin}
-          >
-            Login
-          </button>
-          {errors.loginUser && <p className={styles.error}>The username or password you entered is incorrect</p>}
-        </>
-      )}
-    </div>
-  );
-};
+      <button>Sign in</button>
+    </form>
+    <p className={styles.login}>
+      Don&apos;t have an account? <Link to={`${Paths.Root}${Paths.Register}`}>Register</Link>
+    </p>
+  </div>
+);

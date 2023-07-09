@@ -1,9 +1,7 @@
 export enum Paths {
   Root = '/',
   Login = 'login',
-  Posts = 'posts',
+  Register = 'register',
 }
 
-export enum Params {
-  PostId = 'postId',
-}
+export enum Params {}
