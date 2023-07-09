@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { Layout } from '#components';
+import { Layout, RequireAuth } from '#components';
 import { HomePage, LoginPage, NotFoundPage, RegisterPage } from '#pages';
 import { NavigatorSetter } from '#services/navigator';
 
@@ -18,7 +18,11 @@ export const Router: React.ComponentType = () => (
       >
         <Route
           index
-          element={<HomePage />}
+          element={
+            <RequireAuth>
+              <HomePage />
+            </RequireAuth>
+          }
         />
         <Route
           element={<LoginPage />}

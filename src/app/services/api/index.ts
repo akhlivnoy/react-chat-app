@@ -1,7 +1,6 @@
 import apisauce, { ApisauceInstance } from 'apisauce';
 
-import { postsApi } from './posts';
-import { userApi } from './user';
+import { firebaseApi } from './firebase';
 
 export const apiClient: ApisauceInstance = apisauce.create({
   baseURL: 'https://dummyjson.com/auth/login',
@@ -10,6 +9,5 @@ export const apiClient: ApisauceInstance = apisauce.create({
 });
 
 export const apiInstance = {
-  posts: postsApi,
-  user: userApi,
+  firebase: firebaseApi,
 };

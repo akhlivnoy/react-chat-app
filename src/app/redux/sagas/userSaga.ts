@@ -1,41 +1,55 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
+import { IUser } from '#models';
 import { Paths } from '#navigation/routes';
 import { userSlice } from '#redux/slices';
-import { GetUserListAction, LoginUserAction } from '#redux/types';
+import { LoginUserAction, RegisterUserAction } from '#redux/types';
 import { apiInstance } from '#services/api';
-import { ApiGetUserListResponse, ApiLoginUserBody, ApiLoginUserResponse } from '#services/api/types';
+import { IFirebaseAuthResponse } from '#services/api/types';
 import { StaticNavigator } from '#services/navigator';
 
-function* loginUserWorker({ payload: { password, username } }: LoginUserAction) {
-  const body: ApiLoginUserBody = {
-    password,
-    username,
-  };
-  const response: ApiLoginUserResponse = yield call(apiInstance.user.loginUser, body);
+function* registerUserWorker({ payload }: RegisterUserAction) {
+  const registerUserResponse: IFirebaseAuthResponse = yield call(apiInstance.firebase.registerUser, payload);
+  if (!registerUserResponse.error && registerUserResponse.user) {
+    const user: IUser = {
+      avatarUrl: registerUserResponse.user.photoURL ?? '',
+      email: registerUserResponse.user.email ?? '',
+      nickname: registerUserResponse.user.displayName ?? '',
+      uid: registerUserResponse.user.uid,
+    };
 
-  if (response.ok && response.data) {
-    yield put(userSlice.actions.loginUserSuccess(response.data));
+    yield put(userSlice.actions.registerUserSuccess(user));
 
-    StaticNavigator.navigate(Paths.Posts);
-  } else {
-    // TODO: error from backend side
-    yield put(userSlice.actions.loginUserError('Login error'));
+    StaticNavigator.navigate(Paths.Root);
+  }
+
+  if (registerUserResponse.error) {
+    yield put(userSlice.actions.registerUserError(registerUserResponse.error));
   }
 }
 
-function* getUserListWorker({ payload: { limit } }: GetUserListAction) {
-  const response: ApiGetUserListResponse = yield call(apiInstance.user.getUserList, limit);
+function* loginUserWorker({ payload }: LoginUserAction) {
+  const loginUserResponse: IFirebaseAuthResponse = yield call(apiInstance.firebase.loginUser, payload);
 
-  if (response.ok && response.data) {
-    yield put(userSlice.actions.getUserListSuccess(response.data));
-  } else {
-    // TODO: error from backend side
-    yield put(userSlice.actions.loginUserError('Login error'));
+  if (!loginUserResponse.error && loginUserResponse.user) {
+    const user: IUser = {
+      avatarUrl: loginUserResponse.user.photoURL ?? '',
+      email: loginUserResponse.user.email ?? '',
+      nickname: loginUserResponse.user.displayName ?? '',
+      uid: loginUserResponse.user.uid,
+    };
+
+    yield put(userSlice.actions.loginUserSuccess(user));
+
+    StaticNavigator.navigate(Paths.Root);
+  }
+
+  if (loginUserResponse.error) {
+    yield put(userSlice.actions.loginUserError(loginUserResponse.error));
   }
 }
 
 export function* userSaga() {
+  yield takeLatest(userSlice.actions.registerUser, registerUserWorker);
   yield takeLatest(userSlice.actions.loginUser, loginUserWorker);
-  yield takeLatest(userSlice.actions.getUserList, getUserListWorker);
 }

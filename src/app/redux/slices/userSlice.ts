@@ -1,18 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IUser, IUserLoginData } from '#models';
-import { GetUserListAction, LoginUserAction } from '#redux/types';
-import { ApiGetUserListSuccessResponse, ApiLoginUserSuccessResponse } from '#services/api/types';
+import { IUser } from '#models';
+import { LoginUserAction, RegisterUserAction } from '#redux/types';
 import { Nullable } from '#types/nullable';
 
 export interface IUserState {
   user: Nullable<IUser>;
-  userList: IUserLoginData[];
 }
 
 const INITIAL_STATE: IUserState = {
   user: null,
-  userList: [],
 };
 
 export const userSlice = createSlice({
@@ -20,19 +17,19 @@ export const userSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     loginUser(state, action: LoginUserAction) {},
-    loginUserSuccess(state, { payload }: PayloadAction<ApiLoginUserSuccessResponse>) {
+    loginUserSuccess(state, { payload }: PayloadAction<IUser>) {
       state.user = payload;
     },
     loginUserError(state, action: PayloadAction<string>) {},
 
-    getUserList(state, action: GetUserListAction) {},
-    getUserListSuccess(state, { payload }: PayloadAction<ApiGetUserListSuccessResponse>) {
-      state.userList = payload.users;
+    registerUser(state, action: RegisterUserAction) {},
+    registerUserSuccess(state, { payload }: PayloadAction<IUser>) {
+      state.user = payload;
     },
-    getUserListError(state, action: PayloadAction<string>) {},
+    registerUserError(state, action: PayloadAction<string>) {},
 
-    logout(state) {
-      state.user = null;
+    logout() {
+      return INITIAL_STATE;
     },
   },
 });
