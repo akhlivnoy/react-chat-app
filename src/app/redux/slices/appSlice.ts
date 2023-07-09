@@ -13,16 +13,12 @@ export interface IAppState {
 
 const INITIAL_STATE: IAppState = {
   loading: {
-    isGetUser: false,
     isLoginUser: false,
     isRegisterUser: false,
-    isGetUserList: false,
   },
   errors: {
-    getUser: null,
     loginUser: null,
     registerUser: null,
-    getUserList: null,
   },
 };
 
@@ -69,18 +65,11 @@ export const appSlice = createSlice({
       ErrorType.loginUser,
     );
 
-    // Get users actions
-    addCases(
-      [userSlice.actions.getUserList, userSlice.actions.getUserListSuccess, userSlice.actions.getUserListError],
-      LoadingType.isGetUserList,
-      ErrorType.getUserList,
-    );
-
     // Register actions
-    // addCases(
-    //  [userSlice.actions.registerUser, userSlice.actions.registerUserSuccess, userSlice.actions.registerUserError],
-    //  LoadingType.isRegisterUser,
-    //  ErrorType.registerUser,
-    // );
+    addCases(
+      [userSlice.actions.registerUser, userSlice.actions.registerUserSuccess, userSlice.actions.registerUserError],
+      LoadingType.isRegisterUser,
+      ErrorType.registerUser,
+    );
   },
 });

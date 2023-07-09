@@ -1,10 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
-export type LoginUserAction = PayloadAction<{
-  username: string;
-  password: string;
-}>;
+import { IFirebaseLoginData, IFirebaseRegisterData } from '#services/api/types';
 
-export type GetUserListAction = PayloadAction<{
-  limit: number;
-}>;
+export type RegisterUserAction = PayloadAction<IFirebaseRegisterData>;
+
+export type LoginUserAction = PayloadAction<IFirebaseLoginData>;

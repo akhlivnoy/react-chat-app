@@ -1,13 +1,9 @@
 export enum ErrorType {
-  registerUser = 'registerUser',
   loginUser = 'loginUser',
-  getUser = 'getUser',
-  getUserList = 'getUserList',
+  registerUser = 'registerUser',
 }
 
 export enum LoadingType {
   isLoginUser = 'isLoginUser',
   isRegisterUser = 'isRegisterUser',
-  isGetUser = 'isGetUser',
-  isGetUserList = 'isGetUserList',
 }
