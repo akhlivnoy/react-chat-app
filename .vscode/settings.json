@@ -5,7 +5,6 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "eslint.nodePath": "./node_modules",
-  "eslint.packageManager": "yarn",
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "files.associations": {
     "bitrise.yml": "plaintext"
@@ -17,8 +16,5 @@
   "scss.lint.float": "error",
   "[scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[xml]": {
-    "editor.defaultFormatter": "redhat.vscode-xml"
   }
 }
