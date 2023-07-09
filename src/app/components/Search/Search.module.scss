@@ -1,0 +1,14 @@
+.container {
+  border-bottom: 1px solid $grey-dark;
+  padding: 0.75rem;
+
+  input {
+    background-color: transparent;
+
+    color: $white;
+
+    &::placeholder {
+      color: darken($grey, 10);
+    }
+  }
+}

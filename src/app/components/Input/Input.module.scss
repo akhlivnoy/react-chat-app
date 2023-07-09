@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  padding: 0 1rem;
+
+  background-color: $white;
+
+  input {
+    flex: 1;
+    padding: 1.25rem 0;
+
+    font-size: 1rem;
+  }
+}
+
+.send-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  label,
+  button {
+    cursor: pointer;
+  }
+
+  button {
+    padding: 0.75rem 1rem;
+
+    color: $white;
+    border-radius: 0.5em;
+    background-color: $primary-light;
+  }
+}

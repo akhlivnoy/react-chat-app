@@ -2,7 +2,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { Layout } from '#components';
-import { LoginPage, NotFoundPage, RegisterPage } from '#pages';
+import { HomePage, LoginPage, NotFoundPage, RegisterPage } from '#pages';
 import { NavigatorSetter } from '#services/navigator';
 
 import { Paths } from './routes';
@@ -16,6 +16,10 @@ export const Router: React.ComponentType = () => (
         errorElement={<NotFoundPage />}
         path={Paths.Root}
       >
+        <Route
+          index
+          element={<HomePage />}
+        />
         <Route
           element={<LoginPage />}
           path={Paths.Login}
