@@ -1,26 +1,26 @@
 @use './vars.scss' as *;
 @use 'sass:math';
 
-@mixin mq-min($key: md) {
+@mixin mq-from($key: md) {
   @if not map-has-key($breakpoints, $key) {
     @error "Size '#{$key}' not found.";
   }
 
   $size: map-get($breakpoints, $key);
 
-  @media (min-width: $size) {
+  @media (width <= $size) {
     @content;
   }
 }
 
-@mixin mq-max($key: md) {
+@mixin mq-to($key: md) {
   @if not map-has-key($breakpoints, $key) {
     @error "Size '#{$key}' not found.";
   }
 
   $size: map-get($breakpoints, $key);
 
-  @media (max-width: $size) {
+  @media (width >= $size) {
     @content;
   }
 }

@@ -34,15 +34,15 @@
   },
 
   //* Media Queries
-  "minWidthQuery": {
+  "toWidthMediaQuery": {
     "scope": "scss",
-    "prefix": "mqMin",
-    "body": "@include mq-min(${1|xs,sm,md,lg|}) {\n\t$0\n}"
+    "prefix": "mqTo",
+    "body": "@include mq-to(${1|xs,sm,md,lg|}) {\n\t$0\n}"
   },
-  "maxWidthQuery": {
+  "fromWidthMediaQuery": {
     "scope": "scss",
-    "prefix": "mqMax",
-    "body": "@include mq-max(${1|xs,sm,md,lg|}) {\n\t$0\n}"
+    "prefix": "mqFrom",
+    "body": "@include mq-from(${1|xs,sm,md,lg|}) {\n\t$0\n}"
   },
 
   //* Mixins

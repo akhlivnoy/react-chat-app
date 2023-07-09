@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+
+  background-color: $primary-darkest;
+  color: $white-dark;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+
+  @include mq-from(lg) {
+    display: none;
+  }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  img {
+    width: 24px;
+    height: 24px;
+
+    background-color: $white-dark;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  button {
+    padding: 0.5em;
+
+    background-color: $primary;
+    border-radius: 0.25em;
+    cursor: pointer;
+
+    color: $white-dark;
+    font-size: 0.75rem;
+  }
+}

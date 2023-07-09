@@ -1,0 +1,56 @@
+.message {
+  display: flex;
+  gap: 1.25rem;
+
+  &.owner {
+    flex-direction: row-reverse;
+
+    .content {
+      align-items: flex-end;
+
+      p {
+        color: $white;
+
+        background-color: $primary-lightest;
+        border-radius: 0.625em 0 0.625em 0.625em;
+      }
+    }
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  color: $grey-dark;
+  font-weight: 300;
+  font-size: 0.75rem;
+
+  img {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 80%;
+
+  p {
+    max-width: max-content;
+    padding: 0.5rem 1.25rem;
+
+    background-color: $white;
+    border-radius: 0 0.625em 0.625em;
+  }
+
+  img {
+    width: 35%;
+  }
+}
