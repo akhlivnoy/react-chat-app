@@ -1,5 +1,5 @@
 /* eslint-disable react/no-multi-comp */
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import { Chat, Layout, RequireAuth } from '#components';
 import { HomePage, LoginPage, NotFoundPage, RegisterPage } from '#pages';
@@ -8,7 +8,7 @@ import { NavigatorSetter } from '#services/navigator';
 import { Params, Paths } from './routes';
 
 export const Router: React.ComponentType = () => (
-  <BrowserRouter>
+  <HashRouter>
     <NavigatorSetter />
     <Routes>
       <Route
@@ -43,5 +43,5 @@ export const Router: React.ComponentType = () => (
         path="*"
       />
     </Routes>
-  </BrowserRouter>
+  </HashRouter>
 );
