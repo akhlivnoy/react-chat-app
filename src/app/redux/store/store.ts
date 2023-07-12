@@ -5,11 +5,12 @@ import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga';
 
 import { rootSaga } from '#redux/sagas';
-import { appSlice, userSlice } from '#redux/slices';
+import { appSlice, cacheSlice, userSlice } from '#redux/slices';
 
 export const rootReducer = combineReducers({
   app: appSlice.reducer,
   user: userSlice.reducer,
+  cache: cacheSlice.reducer,
 });
 
 const PERSIST_CONFIG: PersistConfig<ReturnType<typeof rootReducer>> = {

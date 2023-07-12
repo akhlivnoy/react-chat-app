@@ -6,7 +6,8 @@
 
 .info {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
   padding: 1rem;
 
   background-color: $primary;

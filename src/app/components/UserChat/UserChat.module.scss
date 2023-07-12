@@ -1,33 +1,18 @@
-.container {
-  display: flex;
-  flex-direction: column;
-
-  border-bottom: 1px solid $grey-dark;
-  padding: 0.75rem 0 0;
-
-  input {
-    padding: 0.75rem;
-    margin: 0 0.75rem 0.5rem;
-    background-color: $grey;
-
-    color: $black;
-
-    &::placeholder {
-      color: $grey-dark;
-    }
-  }
-}
-
 .chat {
   display: flex;
   padding: 0.75rem;
   align-items: center;
   gap: 1rem;
+  min-width: 18rem;
 
   color: $white;
   background-color: transparent;
 
   cursor: pointer;
+
+  &.active {
+    background-color: $primary-darkest;
+  }
 
   &:hover {
     background-color: $primary-darkest;
@@ -55,7 +40,13 @@
     font-weight: 500;
   }
   p {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
     flex-basis: 100%;
     text-align: start;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

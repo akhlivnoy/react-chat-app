@@ -1,11 +1,11 @@
 /* eslint-disable react/no-multi-comp */
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { Layout, RequireAuth } from '#components';
+import { Chat, Layout, RequireAuth } from '#components';
 import { HomePage, LoginPage, NotFoundPage, RegisterPage } from '#pages';
 import { NavigatorSetter } from '#services/navigator';
 
-import { Paths } from './routes';
+import { Params, Paths } from './routes';
 
 export const Router: React.ComponentType = () => (
   <BrowserRouter>
@@ -17,13 +17,18 @@ export const Router: React.ComponentType = () => (
         path={Paths.Root}
       >
         <Route
-          index
           element={
             <RequireAuth>
               <HomePage />
             </RequireAuth>
           }
-        />
+          path={Paths.Root}
+        >
+          <Route
+            element={<Chat />}
+            path={`:${Params.ChatId}`}
+          />
+        </Route>
         <Route
           element={<LoginPage />}
           path={Paths.Login}

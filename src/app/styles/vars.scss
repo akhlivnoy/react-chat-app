@@ -1,14 +1,34 @@
 $breakpoints: (
-  xs: 20rem,
+  20: 20rem,
   // 320px
-  sm: 40rem,
+  25: 25rem,
+  // 400px
+  30: 30rem,
+  // 480px
+  35: 35rem,
+  // 560px
+  40: 40rem,
   // 640px
-  md: 65rem,
-  // 1 040px
-  lg: 75rem,
-  // 1 200px
-  xlg: 90rem,
-  // 1 440px
+  45: 45rem,
+  // 720px
+  50: 50rem,
+  // 800px
+  55: 55rem,
+  // 880px
+  60: 60rem,
+  // 960px
+  65: 65rem,
+  // 1040px
+  70: 70rem,
+  // 1120px
+  75: 75rem,
+  // 1200px
+  80: 80rem,
+  // 1280px
+  85: 85rem,
+  // 1360px
+  90: 90rem,
+  // 1440px
 );
 
 $rootMaxWidth: 92rem;

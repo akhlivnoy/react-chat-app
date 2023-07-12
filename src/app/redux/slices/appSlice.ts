@@ -15,10 +15,12 @@ const INITIAL_STATE: IAppState = {
   loading: {
     isLoginUser: false,
     isRegisterUser: false,
+    isSearchUser: false,
   },
   errors: {
     loginUser: null,
     registerUser: null,
+    searchUser: null,
   },
 };
 
@@ -70,6 +72,13 @@ export const appSlice = createSlice({
       [userSlice.actions.registerUser, userSlice.actions.registerUserSuccess, userSlice.actions.registerUserError],
       LoadingType.isRegisterUser,
       ErrorType.registerUser,
+    );
+
+    // Search actions
+    addCases(
+      [userSlice.actions.searchUser, userSlice.actions.searchUserSuccess, userSlice.actions.searchUserError],
+      LoadingType.isSearchUser,
+      ErrorType.searchUser,
     );
   },
 });

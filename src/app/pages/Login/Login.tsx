@@ -1,14 +1,20 @@
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { useAppDispatch } from '#hooks';
+import { useAppDispatch, useAppSelector } from '#hooks';
 import { Paths } from '#navigation/routes';
 import { InputType } from '#pages';
-import { userSlice } from '#redux/slices';
+import { appSlice, userSlice } from '#redux/slices';
 
 import styles from './Login.module.scss';
 
 export const LoginPage: React.ComponentType = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const {
+    errors: { loginUser: loginUserError },
+    loading: { isLoginUser },
+  } = useAppSelector(state => state.app);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,6 +26,10 @@ export const LoginPage: React.ComponentType = () => {
         password: password.value,
       }),
     );
+  };
+
+  const onRegisterClick = () => {
+    dispatch(appSlice.actions.resetErrors());
   };
 
   return (
@@ -43,10 +53,23 @@ export const LoginPage: React.ComponentType = () => {
           type="password"
         />
 
-        <button type="submit">Sign in</button>
+        {loginUserError && <p className={styles.error}>{t(loginUserError)}</p>}
+
+        <button
+          disabled={isLoginUser}
+          type="submit"
+        >
+          Sign in
+        </button>
       </form>
       <p className={styles.login}>
-        Don&apos;t have an account? <Link to={`${Paths.Root}${Paths.Register}`}>Register</Link>
+        Don&apos;t have an account?{' '}
+        <Link
+          to={`${Paths.Root}${Paths.Register}`}
+          onClick={onRegisterClick}
+        >
+          Register
+        </Link>
       </p>
     </div>
   );

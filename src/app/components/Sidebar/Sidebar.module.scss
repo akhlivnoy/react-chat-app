@@ -1,4 +1,30 @@
 .container {
   flex: 1;
   background-color: $primary-dark;
+
+  &.hide {
+    @include mq-to(45) {
+      animation: hide 0.5s forwards;
+    }
+
+    @keyframes hide {
+      from {
+        width: 100%;
+      }
+      to {
+        flex: 0;
+        width: 0%;
+      }
+    }
+  }
+}
+
+.content {
+  overflow-y: scroll;
+  scrollbar-width: 0;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

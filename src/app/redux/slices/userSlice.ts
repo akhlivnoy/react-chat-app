@@ -1,15 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IUser } from '#models';
+import { IUser, IUserChat, IUserInfo } from '#models';
 import { LoginUserAction, RegisterUserAction } from '#redux/types';
 import { Nullable } from '#types/nullable';
 
 export interface IUserState {
   user: Nullable<IUser>;
+  searchedUsers: ReadonlyArray<IUser>;
+  chat: Nullable<IUserChat>;
 }
 
 const INITIAL_STATE: IUserState = {
   user: null,
+  searchedUsers: [],
+  chat: null,
 };
 
 export const userSlice = createSlice({
@@ -27,6 +31,21 @@ export const userSlice = createSlice({
       state.user = payload;
     },
     registerUserError(state, action: PayloadAction<string>) {},
+
+    searchUser(state, action: PayloadAction<string>) {},
+    searchUserSuccess(state, { payload }: PayloadAction<IUser[]>) {
+      state.searchedUsers = payload;
+    },
+    searchUserError(state, action: PayloadAction<string>) {},
+    clearSearchedUser(state) {
+      state.searchedUsers = [];
+    },
+
+    getInterlocutor(state, action: PayloadAction<IUserInfo>) {},
+    getInterlocutorSuccess(state, { payload }: PayloadAction<IUserChat>) {
+      state.chat = payload;
+    },
+    getInterlocutorError(state, action: PayloadAction<string>) {},
 
     logout() {
       return INITIAL_STATE;

@@ -45,6 +45,10 @@
     font-weight: 600;
 
     cursor: pointer;
+
+    &:disabled {
+      background-color: lighten($primary-light, 15);
+    }
   }
 
   label {
@@ -57,6 +61,11 @@
 
     cursor: pointer;
   }
+}
+
+.error {
+  font-size: 0.75rem;
+  color: red;
 }
 
 .login {

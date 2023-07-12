@@ -37,12 +37,12 @@
   "toWidthMediaQuery": {
     "scope": "scss",
     "prefix": "mqTo",
-    "body": "@include mq-to(${1|xs,sm,md,lg|}) {\n\t$0\n}"
+    "body": "@include mq-to(${1|20,25,30,35,40,45,50,55,60,65,70,75,80,85,90|}) {\n\t$0\n}"
   },
   "fromWidthMediaQuery": {
     "scope": "scss",
     "prefix": "mqFrom",
-    "body": "@include mq-from(${1|xs,sm,md,lg|}) {\n\t$0\n}"
+    "body": "@include mq-from(${1|20,25,30,35,40,45,50,55,60,65,70,75,80,85,90|}) {\n\t$0\n}"
   },
 
   //* Mixins
