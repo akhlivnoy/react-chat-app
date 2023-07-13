@@ -1,10 +1,11 @@
 import { Without } from '#types/without';
 
 export interface IUser {
+  uid: string;
   avatarUrl: string;
   email: string;
   nickname: string;
-  uid: string;
+  alias?: string;
 }
 
 export interface IUserChat {

@@ -15,6 +15,7 @@ export const Search: React.ComponentType = () => {
 
   const handleSearch = (e?: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
+    setSearchValue(inputValue);
 
     if (inputValue === '') {
       dispatch(userSlice.actions.clearSearchedUser());
@@ -24,14 +25,6 @@ export const Search: React.ComponentType = () => {
 
     if (searchValue !== inputValue && inputValue !== '') {
       dispatch(userSlice.actions.searchUser(inputValue));
-    }
-  };
-
-  const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === 'Enter') {
-      setSearchValue(inputValue);
-
-      handleSearch();
     }
   };
 
@@ -53,7 +46,6 @@ export const Search: React.ComponentType = () => {
         type="text"
         value={inputValue}
         onChange={onChange}
-        onKeyDown={handleKey}
       />
 
       {_.map(searchedUsers, user => {

@@ -16,7 +16,6 @@ export const HomePage: React.ComponentType = () => {
 
   useEffect(() => {
     dispatch(cacheSlice.actions.setIsChatOpened(isChatOpened));
-    console.log(isChatOpened);
 
     // intentionally
     // eslint-disable-next-line react-hooks/exhaustive-deps

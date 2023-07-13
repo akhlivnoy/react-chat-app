@@ -8,27 +8,25 @@ import styles from './Input.module.scss';
 
 export const Input: React.ComponentType = () => {
   const [inputValue, setInputValue] = useState('');
+  const [imgFile, setImgFile] = useState<File>();
 
   const { chat } = useAppSelector(state => state.user);
 
   const sendMessage = (e?: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
 
-    if (inputValue !== '' && chat) {
-      apiInstance.firebase.sendMessage(inputValue, chat.chatUid);
+    if ((inputValue || imgFile) && chat) {
+      apiInstance.firebase.sendMessage(inputValue, chat.chatUid, imgFile);
       setInputValue('');
     }
   };
 
-  const onClick = () => {
-    if (chat) {
-      sendMessage();
-    }
-  };
-
-  const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === 'Enter') {
-      sendMessage();
+  const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      if (file) {
+        setImgFile(file);
+      }
     }
   };
 
@@ -46,18 +44,19 @@ export const Input: React.ComponentType = () => {
         type="text"
         value={inputValue}
         onChange={onChange}
-        onKeyDown={handleKey}
       />
       <div className={styles.sendContainer}>
         <label htmlFor="file">
           <SVG.AddAvatar />
           <input
             hidden
+            accept="image/*"
             id="file"
             type="file"
+            onChange={handleFileSelected}
           />
         </label>
-        <button onClick={onClick}>Send</button>
+        <button>Send</button>
       </div>
     </form>
   );

@@ -1,4 +1,5 @@
 export * from './Chat';
+export * from './ChatMenu';
 export * from './Chats';
 export * from './Input';
 export * from './Layout';

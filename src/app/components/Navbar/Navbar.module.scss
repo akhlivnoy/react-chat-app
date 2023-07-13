@@ -8,7 +8,11 @@
   color: $white-dark;
 }
 
-.title {
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
   font-size: 1.5rem;
   font-weight: 600;
 
@@ -16,6 +20,10 @@
     @include mq-to(75) {
       display: none;
     }
+  }
+
+  img {
+    width: 32px;
   }
 }
 

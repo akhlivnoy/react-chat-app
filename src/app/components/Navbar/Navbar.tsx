@@ -19,9 +19,13 @@ export const Navbar: React.ComponentType = () => {
   return (
     <div className={styles.container}>
       <Link
-        className={classNames(styles.title, isChatOpened && styles.opened)}
+        className={classNames(styles.logo, isChatOpened && styles.opened)}
         to={Paths.Root}
       >
+        <img
+          alt="logo"
+          src="./logo.png"
+        />
         Chat
       </Link>
       <div className={styles.user}>

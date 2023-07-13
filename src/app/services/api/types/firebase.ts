@@ -5,6 +5,8 @@ import { IMessage, IUser, IUserChat } from '#models';
 import { Nullable } from '#types/nullable';
 
 export enum FirebasePaths {
+  Avatars = 'avatars',
+  Attachments = 'attachments',
   Chats = 'chats',
   Users = 'users',
   UserChats = 'user_chats',

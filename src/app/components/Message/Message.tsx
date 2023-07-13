@@ -6,7 +6,7 @@ import { classNames } from '#utils/classNames';
 
 import styles from './Message.module.scss';
 
-export const Message: React.ComponentType<IMessage> = ({ text, senderId, createdAt }) => {
+export const Message: React.ComponentType<IMessage> = ({ text, senderId, createdAt, imgUrl }) => {
   const { chat, user } = useAppSelector(state => state.user);
 
   return (
@@ -19,11 +19,13 @@ export const Message: React.ComponentType<IMessage> = ({ text, senderId, created
         <span>{moment(createdAt).format('LT')}</span>
       </div>
       <div className={styles.content}>
-        {/* <img
-          alt="attached"
-          src="https://images.pexels.com/photos/16999877/pexels-photo-16999877.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-        /> */}
-        <p>{text}</p>
+        {imgUrl && (
+          <img
+            alt="attached"
+            src={imgUrl}
+          />
+        )}
+        {text && <p>{text}</p>}
       </div>
     </div>
   );

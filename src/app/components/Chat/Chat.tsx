@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { SVG } from '#assets/svg';
-import { Input, Messages } from '#components';
+import { ChatMenu, Input, Messages } from '#components';
 import { useAppSelector } from '#hooks';
 import { Paths } from '#navigation/routes';
 
@@ -16,11 +16,10 @@ export const Chat: React.ComponentType = () => {
         <Link to={Paths.Root}>
           <SVG.BackArrow />
         </Link>
-        <span>{chat?.interlocutorInfo.nickname}</span>
-        <SVG.Options />
+        <span>{chat?.interlocutorInfo.alias || chat?.interlocutorInfo.nickname}</span>
+        <ChatMenu />
       </div>
       <Messages />
-
       <Input />
     </div>
   );

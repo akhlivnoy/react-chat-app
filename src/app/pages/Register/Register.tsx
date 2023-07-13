@@ -85,6 +85,7 @@ export const RegisterPage: React.ComponentType = () => {
         <label htmlFor="file">
           <input
             hidden
+            accept="image/*"
             id="file"
             name={InputType.File}
             type="file"
