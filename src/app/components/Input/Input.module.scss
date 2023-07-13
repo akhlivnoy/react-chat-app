@@ -6,7 +6,7 @@
 
   input {
     flex: 1;
-    padding: 1.25rem 0;
+    padding: 1.25rem 1rem 1.25rem 0;
 
     font-size: 1rem;
   }
@@ -16,6 +16,18 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+
+  label {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 0.5rem;
+  }
+
+  img {
+    max-height: 50px;
+    object-fit: contain;
+  }
 
   label,
   button {

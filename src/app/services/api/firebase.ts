@@ -23,6 +23,7 @@ import { v4 as uuid } from 'uuid';
 
 import { firebaseConfig } from '#constants/firebase';
 import { IMessage, IUser, IUserChat, IUserInfo } from '#models';
+import { Nullable } from '#types/nullable';
 import { parseFirebaseError } from '#utils/parseFirebaseError';
 
 import {
@@ -173,7 +174,7 @@ const getUserChat = async (interlocutor: IUserInfo) => {
   return getUserChatResponse;
 };
 
-const sendMessage = async (text: string, chatUid: string, imgFile?: File) => {
+const sendMessage = async (text: string, chatUid: string, imgFile: Nullable<File>) => {
   const messagesRef = dbRef(database, `${FirebasePaths.Chats}/${chatUid}/${FirebasePaths.Messages}`);
   const newMessageRef = push(messagesRef);
 
@@ -198,15 +199,14 @@ const sendMessage = async (text: string, chatUid: string, imgFile?: File) => {
     await get(child(dbRef(database), `${FirebasePaths.UserChats}/${getCurrentUser()}/${chatUid}`))
   ).val();
 
-  await update(dbRef(database), {
-    [`${FirebasePaths.UserChats}/${getCurrentUser()}/${chatUid}/lastUpdate`]: serverTimestamp(),
-    [`${FirebasePaths.UserChats}/${getCurrentUser()}/${chatUid}/lastMessage`]: text || (imgUrl && '[ attachment ]'),
+  await update(dbRef(database, `${FirebasePaths.UserChats}/${getCurrentUser()}/${chatUid}`), {
+    lastUpdate: serverTimestamp(),
+    lastMessage: text || (imgUrl && '[ attachment ]'),
   });
 
-  await update(dbRef(database), {
-    [`${FirebasePaths.UserChats}/${userChat.interlocutorInfo.uid}/${chatUid}/lastUpdate`]: serverTimestamp(),
-    [`${FirebasePaths.UserChats}/${userChat.interlocutorInfo.uid}/${chatUid}/lastMessage`]:
-      text || (imgUrl && '[ attachment ]'),
+  await update(dbRef(database, `${FirebasePaths.UserChats}/${userChat.interlocutorInfo.uid}/${chatUid}`), {
+    lastUpdate: serverTimestamp(),
+    lastMessage: text || (imgUrl && '[ attachment ]'),
   });
 };
 
@@ -214,8 +214,21 @@ const clearChatHistory = async (chatUid: string) => {
   const chat = await get(child(dbRef(database), `${FirebasePaths.Chats}/${chatUid}`));
 
   if (chat.exists() && auth.currentUser) {
-    await set(dbRef(database, `${FirebasePaths.Chats}/${chatUid}`), {
-      messages: '',
+    await update(dbRef(database, `${FirebasePaths.Chats}/${chatUid}`), {
+      messages: null,
+    });
+
+    const userChat: IUserChat = (
+      await get(child(dbRef(database), `${FirebasePaths.UserChats}/${getCurrentUser()}/${chatUid}`))
+    ).val();
+
+    await update(dbRef(database, `${FirebasePaths.UserChats}/${getCurrentUser()}/${chatUid}`), {
+      lastUpdate: '',
+      lastMessage: '',
+    });
+    await update(dbRef(database, `${FirebasePaths.UserChats}/${userChat.interlocutorInfo.uid}/${chatUid}`), {
+      lastUpdate: '',
+      lastMessage: '',
     });
 
     const chatImagesRef = stRef(storage, `${FirebasePaths.Attachments}/${chatUid}`);

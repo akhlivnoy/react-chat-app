@@ -29,7 +29,7 @@ const UserChatComponent: React.ComponentType<IUserChatProps> = ({ chatInfo, isAc
       />
       <div className={styles.chatInfo}>
         <span className={styles.username}>{chatInfo.interlocutorInfo.alias || chatInfo.interlocutorInfo.nickname}</span>
-        <span>{moment(chatInfo.lastUpdate).fromNow()}</span>
+        {chatInfo.lastUpdate && <span>{moment(chatInfo.lastUpdate).fromNow()}</span>}
 
         <p>{chatInfo.lastMessage}</p>
       </div>

@@ -19,9 +19,13 @@ export const Messages: React.ComponentType = () => {
     setMessages([]);
     const messagesRef = ref(getDatabase(), `${FirebasePaths.Chats}/${chat?.chatUid}/${FirebasePaths.Messages}`);
     const unsubscribe = onValue(messagesRef, snapshot => {
-      if (snapshot.val()) {
+      if (_.isObject(snapshot.val())) {
         const messagesSnapshot: IMessage[] = Object.values(snapshot.val());
         setMessages(messagesSnapshot);
+      }
+
+      if (_.isNull(snapshot.val())) {
+        setMessages([]);
       }
     });
 

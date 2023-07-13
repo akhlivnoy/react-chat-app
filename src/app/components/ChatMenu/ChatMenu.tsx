@@ -23,6 +23,7 @@ export const ChatMenu: React.ComponentType = () => {
   const handleClearHistory = () => {
     if (chat) {
       apiInstance.firebase.clearChatHistory(chat.chatUid);
+      dispatch(userSlice.actions.getInterlocutor(chat.interlocutorInfo));
     }
   };
 

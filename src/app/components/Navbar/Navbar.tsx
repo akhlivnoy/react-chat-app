@@ -28,7 +28,7 @@ export const Navbar: React.ComponentType = () => {
         />
         Chat
       </Link>
-      <div className={styles.user}>
+      <div className={classNames(styles.user, isChatOpened && styles.opened)}>
         <img
           alt="avatar"
           src={user?.avatarUrl}
