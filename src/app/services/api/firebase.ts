@@ -143,14 +143,16 @@ const getUserChat = async (interlocutor: IUserInfo) => {
     if (!chat.exists() && auth.currentUser) {
       await set(dbRef(database, `${FirebasePaths.Chats}/${chatUid}`), {
         createdAt: serverTimestamp(),
+        user1: currentUserUid,
+        user2: interlocutor.uid,
       });
+
       await set(dbRef(database, `${FirebasePaths.UserChats}/${currentUserUid}/${chatUid}`), {
         interlocutorInfo: {
           avatarUrl: interlocutor.avatarUrl,
           nickname: interlocutor.nickname,
           uid: interlocutor.uid,
         },
-        lastUpdate: serverTimestamp() as unknown,
         chatUid,
       } as IUserChat);
       await set(dbRef(database, `${FirebasePaths.UserChats}/${interlocutor.uid}/${chatUid}`), {
@@ -159,7 +161,6 @@ const getUserChat = async (interlocutor: IUserInfo) => {
           nickname: auth.currentUser.displayName ?? '',
           uid: auth.currentUser.uid,
         },
-        lastUpdate: serverTimestamp() as unknown,
         chatUid,
       } as IUserChat);
     }
@@ -167,73 +168,79 @@ const getUserChat = async (interlocutor: IUserInfo) => {
     getUserChatResponse.chat = (
       await get(child(dbRef(database), `${FirebasePaths.UserChats}/${auth.currentUser?.uid}/${chatUid}`))
     ).val();
-  } catch (e) {
-    getUserChatResponse.error = 'firebaseGetUserChat';
+  } catch (error) {
+    getUserChatResponse.error = `firebaseGetUserChat: ${(error as Error).message}`;
   }
 
   return getUserChatResponse;
 };
 
-const sendMessage = async (text: string, chatUid: string, imgFile: Nullable<File>) => {
-  const messagesRef = dbRef(database, `${FirebasePaths.Chats}/${chatUid}/${FirebasePaths.Messages}`);
-  const newMessageRef = push(messagesRef);
+const sendMessage = async (text: string, chat: IUserChat, imgFile: Nullable<File>) => {
+  try {
+    const messagesRef = dbRef(database, `${FirebasePaths.Chats}/${chat.chatUid}/${FirebasePaths.Messages}`);
+    const newMessageRef = push(messagesRef);
 
-  let imgUrl = '';
-  const messageId = uuid();
+    let imgUrl = '';
+    const messageId = uuid();
 
-  if (imgFile) {
-    const chatImageRef = stRef(storage, `${FirebasePaths.Attachments}/${chatUid}/${messageId}`);
-    await uploadBytes(chatImageRef, imgFile);
-    imgUrl = await getDownloadURL(chatImageRef);
+    if (imgFile) {
+      const chatImageRef = stRef(
+        storage,
+        `${FirebasePaths.Attachments}/${getCurrentUser()}/${chat.interlocutorInfo.uid}/${messageId}`,
+        // `${FirebasePaths.Attachments}/${getCurrentUser()}/${chat.chatUid}/${messageId}`,
+      );
+
+      await uploadBytes(chatImageRef, imgFile);
+      imgUrl = await getDownloadURL(chatImageRef);
+    }
+
+    set(newMessageRef, {
+      text,
+      senderId: getCurrentUser(),
+      id: messageId,
+      createdAt: serverTimestamp() as unknown,
+      imgUrl,
+    } as IMessage);
+
+    const userChatUpdates = {
+      lastUpdate: serverTimestamp(),
+      lastMessage: text || (imgUrl && '[ attachment ]'),
+    };
+    await update(dbRef(database, `${FirebasePaths.UserChats}/${getCurrentUser()}/${chat.chatUid}`), userChatUpdates);
+
+    await update(
+      dbRef(database, `${FirebasePaths.UserChats}/${chat.interlocutorInfo.uid}/${chat.chatUid}`),
+      userChatUpdates,
+    );
+  } catch (error) {
+    console.error(error);
   }
-
-  set(newMessageRef, {
-    text,
-    senderId: getCurrentUser(),
-    id: messageId,
-    createdAt: serverTimestamp() as unknown,
-    imgUrl,
-  } as IMessage);
-
-  const userChat: IUserChat = (
-    await get(child(dbRef(database), `${FirebasePaths.UserChats}/${getCurrentUser()}/${chatUid}`))
-  ).val();
-
-  await update(dbRef(database, `${FirebasePaths.UserChats}/${getCurrentUser()}/${chatUid}`), {
-    lastUpdate: serverTimestamp(),
-    lastMessage: text || (imgUrl && '[ attachment ]'),
-  });
-
-  await update(dbRef(database, `${FirebasePaths.UserChats}/${userChat.interlocutorInfo.uid}/${chatUid}`), {
-    lastUpdate: serverTimestamp(),
-    lastMessage: text || (imgUrl && '[ attachment ]'),
-  });
 };
 
-const clearChatHistory = async (chatUid: string) => {
-  const chat = await get(child(dbRef(database), `${FirebasePaths.Chats}/${chatUid}`));
+const clearChatHistory = async ({ chatUid, interlocutorInfo }: IUserChat, userUid: string) => {
+  const chatRef = await get(child(dbRef(database), `${FirebasePaths.Chats}/${chatUid}`));
 
-  if (chat.exists() && auth.currentUser) {
+  if (chatRef.exists() && auth.currentUser) {
     await update(dbRef(database, `${FirebasePaths.Chats}/${chatUid}`), {
       messages: null,
     });
-
-    const userChat: IUserChat = (
-      await get(child(dbRef(database), `${FirebasePaths.UserChats}/${getCurrentUser()}/${chatUid}`))
-    ).val();
 
     await update(dbRef(database, `${FirebasePaths.UserChats}/${getCurrentUser()}/${chatUid}`), {
       lastUpdate: '',
       lastMessage: '',
     });
-    await update(dbRef(database, `${FirebasePaths.UserChats}/${userChat.interlocutorInfo.uid}/${chatUid}`), {
+    await update(dbRef(database, `${FirebasePaths.UserChats}/${interlocutorInfo.uid}/${chatUid}`), {
       lastUpdate: '',
       lastMessage: '',
     });
 
-    const chatImagesRef = stRef(storage, `${FirebasePaths.Attachments}/${chatUid}`);
-    const chatImages = await listAll(chatImagesRef);
-    chatImages.items.map(image => deleteObject(image));
+    const userChatImagesRef = stRef(storage, `${FirebasePaths.Attachments}/${userUid}/${interlocutorInfo.uid}`);
+    const userChatImages = await listAll(userChatImagesRef);
+    userChatImages.items.map(image => deleteObject(image));
+
+    const interlocutorChatImagesRef = stRef(storage, `${FirebasePaths.Attachments}/${interlocutorInfo.uid}/${userUid}`);
+    const interlocutorChatImages = await listAll(interlocutorChatImagesRef);
+    interlocutorChatImages.items.map(image => deleteObject(image));
   }
 };
 

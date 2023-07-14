@@ -20,7 +20,7 @@ export const Input: React.ComponentType = () => {
       const imgFile = fileRef.current.files && fileRef.current.files[0];
 
       if ((inputValue || imgFile) && chat) {
-        apiInstance.firebase.sendMessage(inputValue, chat.chatUid, imgFile);
+        apiInstance.firebase.sendMessage(inputValue, chat, imgFile);
         setInputValue('');
         setImage('');
         fileRef.current.value = '';

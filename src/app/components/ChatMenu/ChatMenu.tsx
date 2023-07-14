@@ -6,7 +6,7 @@ import { apiInstance } from '#services/api';
 import styles from './ChatMenu.module.scss';
 
 export const ChatMenu: React.ComponentType = () => {
-  const { chat } = useAppSelector(state => state.user);
+  const { chat, user } = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
 
   const handleRenameUser = () => {
@@ -21,8 +21,8 @@ export const ChatMenu: React.ComponentType = () => {
   };
 
   const handleClearHistory = () => {
-    if (chat) {
-      apiInstance.firebase.clearChatHistory(chat.chatUid);
+    if (chat && user) {
+      apiInstance.firebase.clearChatHistory(chat, user.uid);
       dispatch(userSlice.actions.getInterlocutor(chat.interlocutorInfo));
     }
   };
